@@ -1,3 +1,6 @@
+# Markdown files (user requested not to upload to GitHub)
+*.md
+
 # NetBeans project files
 nbproject/
 build/
