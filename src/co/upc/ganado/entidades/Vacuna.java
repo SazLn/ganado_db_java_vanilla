@@ -8,7 +8,7 @@ public class Vacuna {
 
     private int idVacuna;
     private String nombreVacuna;
-    private String descripcion;
+    private String descripcion; // NULLABLE
     private String dosisEstandar;
 
     //Constructor vacío. Para crear el objeto y luego setear atributo por atributo al leer datos del CSV.
@@ -21,6 +21,15 @@ public class Vacuna {
         this.descripcion = descripcion;
         this.dosisEstandar = dosisEstandar;
     }
+    
+    //Constructor sin descripcion.
+
+    public Vacuna(int idVacuna, String nombreVacuna, String dosisEstandar) {
+        this.idVacuna = idVacuna;
+        this.nombreVacuna = nombreVacuna;
+        this.dosisEstandar = dosisEstandar;
+    }
+    
 
     public int getIdVacuna() { return idVacuna; }
     public void setIdVacuna(int idVacuna) { this.idVacuna = idVacuna; }

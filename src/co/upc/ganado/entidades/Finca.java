@@ -7,7 +7,7 @@ public class Finca {
 
     private int idFinca;
     private String nombreFinca;
-    private String ubicacion;
+    private String ubicacion; //NULLABLE
 
     //Constructor vacío. Para crear el objeto y luego setear atributo por atributo al leer datos del CSV.
     public Finca() {
@@ -19,6 +19,13 @@ public class Finca {
         this.nombreFinca = nombreFinca;
         this.ubicacion = ubicacion;
     }
+    
+    //constructor sin ubicación.
+    public Finca(int idFinca, String nombreFinca) {
+        this.idFinca = idFinca;
+        this.nombreFinca = nombreFinca;
+    }
+    
 
     //GETTERS Y SETTERS
     public int getIdFinca() {return idFinca;}
