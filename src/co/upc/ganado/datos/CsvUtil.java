@@ -92,8 +92,8 @@ public class CsvUtil {
 
     /**
      * Convierte una línea de texto en un arreglo de varios datos de tipo
-     * String. Por ejemplo, toma una línea de texto como "1,Finca La
-     * Pradera,Valledupar" y la parte en partes individuales → ["1", "Finca La
+     * String. Por ejemplo, toma una línea de texto como "1~Finca La
+     * Pradera~Valledupar" y la parte en partes individuales → ["1", "Finca La
      * Pradera", "Valledupar"]. Es decir, convertir una cadena CSV en un arreglo
      * de campos.
      *
@@ -105,14 +105,14 @@ public class CsvUtil {
         if (lineaCsv == null || lineaCsv.isEmpty()) {
             return new String[0]; //Si está vacía devuelve un arreglo vacío.
         }
-        //Cada que encuentre una "," parte el String como se explicó líneas arriba.
-        return lineaCsv.split(",", -1); //-1 garantiza que se incluyan las cadenas vacía.
+        //Cada que encuentre una "~" parte el String como se explicó líneas arriba.
+        return lineaCsv.split("~", -1); //-1 garantiza que se incluyan las cadenas vacía.
     }
 
     /**
      * Inverso de parsearLinea. Toma un arreglo de campos y los une en una línea
-     * CSV. Ej: ["1", "Finca La Pradera", "Valledupar"] → "1,Finca La
-     * Pradera,Valledupar".
+     * CSV. Ej: ["1", "Finca La Pradera", "Valledupar"] → "1~Finca La
+     * Pradera~Valledupar".
      *
      * @param campos Arreglo con los campos a unir.
      * @return Línea CSV formateada como String.
@@ -123,10 +123,10 @@ public class CsvUtil {
         }
 
         /* Parámetros de 'String.join()': (delimitador, elementos)
-            -El delimitador es un String que se pone entre cada elemento o campo, en este caso una coma ",".
+            -El delimitador es un String que se pone entre cada elemento o campo, en este caso una virgulilla "~".
             -los elemntos son la colección o arreglo de campos, en este caso el String[] campos.
          */
-        return String.join(",", campos); //'String.join()' une todos los campos
+        return String.join("~", campos); //'String.join()' une todos los campos
     }
 
 }
