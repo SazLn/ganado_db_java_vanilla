@@ -2,8 +2,6 @@ package co.upc.ganado.presentacion;
 
 import co.upc.ganado.entidades.DetalleTraslado;
 import co.upc.ganado.entidades.DetalleCompra;
-import co.upc.ganado.datos.DetalleTrasladoData;
-import co.upc.ganado.datos.DetalleCompraData;
 import co.upc.ganado.servicios.DetalleTrasladoService;
 import co.upc.ganado.servicios.DetalleCompraService;
 import java.util.List;
@@ -18,7 +16,7 @@ public class Main {
     static void probarDetalleTrasladoService() {
         System.out.println("=== DETALLE TRASLADO SERVICE ===\n");
 
-        DetalleTrasladoService s = new DetalleTrasladoService(new DetalleTrasladoData());
+        DetalleTrasladoService s = new DetalleTrasladoService();
         int inicial = s.mostrarTodo().size();
 
         System.out.println("1. mostrarTodo: " + inicial + " registros");
@@ -48,7 +46,7 @@ public class Main {
     static void probarDetalleCompraService() {
         System.out.println("=== DETALLE COMPRA SERVICE ===\n");
 
-        DetalleCompraService s = new DetalleCompraService(new DetalleCompraData());
+        DetalleCompraService s = new DetalleCompraService();
         int inicial = s.mostrarTodo().size();
 
         System.out.println("1. mostrarTodo: " + inicial + " registros");

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Servicio para gestionar la l\u00f3gica de negocio de los resultados de palpaci\u00f3n.
+ * Servicio para gestionar la logica de negocio de los resultados de palpacion.
  * 
  * @author Santiago Rafael Zuleta Neira
  */
@@ -17,8 +17,8 @@ public class ResultadoPalpacionService {
     private ResultadoPalpacionData data;
 
     //Constructor
-    public ResultadoPalpacionService(ResultadoPalpacionData data) {
-        this.data = data;
+    public ResultadoPalpacionService() {
+        this.data = new ResultadoPalpacionData();
         this.listaResultados = data.cargarTodo();
     }
 
@@ -47,7 +47,7 @@ public class ResultadoPalpacionService {
         }
     }
 
-    //Busca un resultado de palpaci\u00f3n espec\u00edfico.
+    //Busca un resultado de palpacion especifico.
     public ResultadoPalpacion buscarPorId(int idGanado, int idPalpacion) {
         return listaResultados.stream()
                 .filter(r -> r.getIdGanado() == idGanado && r.getIdPalpacion() == idPalpacion)
@@ -55,7 +55,7 @@ public class ResultadoPalpacionService {
                 .orElse(null);
     }
 
-    //Retorna todos los resultados que pertenecen a una misma palpaci\u00f3n.
+    //Retorna todos los resultados que pertenecen a una misma palpacion.
     public List<ResultadoPalpacion> buscarPorPalpacion(int idPalpacion) {
         return listaResultados.stream()
                 .filter(r -> r.getIdPalpacion() == idPalpacion)

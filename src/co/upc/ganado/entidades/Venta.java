@@ -50,8 +50,8 @@ public class Venta {
     }
     
     //GETTERS y SETTERS
-    public int getId_venta() {return id_venta;}
-    public void setId_venta(int id_venta) {this.id_venta = id_venta;}
+    public int getIdVenta() {return id_venta;}
+    public void setIdVenta(int id_venta) {this.id_venta = id_venta;}
 
     public String getFechaVenta() {return fechaVenta;}
     public void setFechaVenta(String fechaVenta) {this.fechaVenta = fechaVenta;}

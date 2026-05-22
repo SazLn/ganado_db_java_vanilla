@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Servicio para gestionar la l\u00f3gica de negocio de las aplicaciones de vacuna.
+ * Servicio para gestionar la logica de negocio de las aplicaciones de vacuna.
  * 
  * @author Santiago Rafael Zuleta Neira
  */
@@ -17,8 +17,8 @@ public class AplicacionVacunaService {
     private AplicacionVacunaData data;
 
     //Constructor
-    public AplicacionVacunaService(AplicacionVacunaData data) {
-        this.data = data;
+    public AplicacionVacunaService() {
+        this.data = new AplicacionVacunaData();
         this.listaAplicaciones = data.cargarTodo();
     }
 
@@ -49,7 +49,7 @@ public class AplicacionVacunaService {
         }
     }
 
-    //Busca una aplicaci\u00f3n espec\u00edfica por clave triple.
+    //Busca una aplicacion especifica por clave triple.
     public AplicacionVacuna buscarPorId(int idGanado, int idVacuna, String fechaAplicacion) {
         return listaAplicaciones.stream()
                 .filter(a -> a.getIdGanado() == idGanado

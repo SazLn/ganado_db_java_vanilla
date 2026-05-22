@@ -17,8 +17,8 @@ public class DetalleVentaService {
     private DetalleVentaData data;
 
     //Constructor
-    public DetalleVentaService(DetalleVentaData data) {
-        this.data = data;
+    public DetalleVentaService() {
+        this.data = new DetalleVentaData();
         this.listaDetalles = data.cargarTodo();
     }
 

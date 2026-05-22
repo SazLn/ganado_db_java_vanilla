@@ -21,8 +21,8 @@ public class DetalleCompraService {
     private DetalleCompraData data;
 
     //Constructor
-    public DetalleCompraService(DetalleCompraData data) {
-        this.data = data;
+    public DetalleCompraService() {
+        this.data = new DetalleCompraData();
         this.listaDetalles = data.cargarTodo();
     }
 

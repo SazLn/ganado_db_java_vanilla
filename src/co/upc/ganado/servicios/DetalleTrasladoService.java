@@ -17,8 +17,8 @@ public class DetalleTrasladoService {
     private DetalleTrasladoData data;
 
     //Constructor
-    public DetalleTrasladoService(DetalleTrasladoData data) {
-        this.data = data;
+    public DetalleTrasladoService() {
+        this.data = new DetalleTrasladoData();
         this.listaDetalles = data.cargarTodo();
     }
 
@@ -46,7 +46,7 @@ public class DetalleTrasladoService {
         }
     }
 
-    //Busca un detalle de traslado espec\u00edfico.
+    //Busca un detalle de traslado especifico.
     public DetalleTraslado buscarPorId(int idTraslado, int idGanado) {
         return listaDetalles.stream()
                 .filter(d -> d.getIdGanado() == idGanado)

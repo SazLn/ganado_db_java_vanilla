@@ -55,7 +55,7 @@ public class VentaData {
         lineasEscribir.add(new String[]{"idVenta", "fechaVenta", "tipoVenta", "comprador", "documentoReferencia", "valorTotalVenta", "metodoPago", "responsableVenta"});
 
         for (int i = 0; i < lista.size(); i++) {
-            String idVenta = String.valueOf(lista.get(i).getId_venta());
+            String idVenta = String.valueOf(lista.get(i).getIdVenta());
             String fechaVenta = lista.get(i).getFechaVenta();
             String tipoVenta = lista.get(i).getTipoVenta() != null ? lista.get(i).getTipoVenta().toString() : "";
             String comprador = lista.get(i).getComprador();
@@ -91,7 +91,7 @@ public class VentaData {
 
         for (int i = 0; i < lista.size(); i++) {
             Venta antigua = lista.get(i);
-            if (antigua.getId_venta() == ventaActualizada.getId_venta()) {
+            if (antigua.getIdVenta() == ventaActualizada.getIdVenta()) {
                 lista.set(i, ventaActualizada);
                 break;
             }
@@ -107,7 +107,7 @@ public class VentaData {
      */
     public void eliminarVenta(int idVenta) {
         List<Venta> lista = cargarTodo();
-        lista.removeIf(v -> v.getId_venta() == idVenta);
+        lista.removeIf(v -> v.getIdVenta() == idVenta);
         guardarTodo(lista);
     }
 }
