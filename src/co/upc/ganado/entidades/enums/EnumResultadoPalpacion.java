@@ -5,6 +5,6 @@ package co.upc.ganado.entidades.enums;
  * Valores: "Prenada", "Vacia"
  */
 public enum EnumResultadoPalpacion {
-    PRENADA,
-    VACIA
+    Prenada,
+    Vacia
 }

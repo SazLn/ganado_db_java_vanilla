@@ -2,8 +2,14 @@ package co.upc.ganado.presentacion;
 
 import co.upc.ganado.entidades.DetalleTraslado;
 import co.upc.ganado.entidades.DetalleCompra;
+import co.upc.ganado.entidades.Compra;
+import co.upc.ganado.entidades.Vacuna;
 import co.upc.ganado.servicios.DetalleTrasladoService;
 import co.upc.ganado.servicios.DetalleCompraService;
+import co.upc.ganado.servicios.GanadoService;
+import co.upc.ganado.servicios.CompraService;
+import co.upc.ganado.servicios.AplicacionVacunaService;
+import co.upc.ganado.servicios.VacunaService;
 import java.util.List;
 
 public class Main {
@@ -11,6 +17,8 @@ public class Main {
     public static void main(String[] args) {
         probarDetalleTrasladoService();
         probarDetalleCompraService();
+        probarCompraService();
+        probarVacunaService();
     }
 
     static void probarDetalleTrasladoService() {
@@ -70,6 +78,76 @@ public class Main {
         System.out.println("7. eliminar(99,99): " + (s.buscarPorId(99, 99) == null ? "OK (eliminado)" : "ERROR"));
 
         System.out.println("8. integridad: " + (s.mostrarTodo().size() == inicial ? "OK" : "ERROR"));
+
+        System.out.println();
+    }
+
+    static void probarCompraService() {
+        System.out.println("=== COMPRA SERVICE ===\n");
+
+        GanadoService gs = new GanadoService();
+        DetalleCompraService ds = new DetalleCompraService();
+        CompraService s = new CompraService(ds, gs);
+
+        System.out.println("1. mostrarTodo: " + s.mostrarTodo().size() + " compras");
+
+        Compra c = s.buscarPorId(1);
+        System.out.println("2. buscarPorId(1): " + (c != null ? c : "NO ENCONTRADO"));
+
+        System.out.println("3. buscarPorId(99): " + (s.buscarPorId(99) == null ? "null (correcto)" : "ERROR"));
+
+        s.insertar(new Compra(99, "2026-01-01", null, "", 0, "Prueba", "Test"));
+        System.out.println("4. insertar(99): " + (s.buscarPorId(99) != null ? "OK" : "ERROR"));
+
+        s.eliminar(99);
+        System.out.println("5. eliminar(99): " + (s.buscarPorId(99) == null ? "OK" : "ERROR"));
+
+        //Q6
+        System.out.println("\n6. Q6 - HISTORIAL DE COMPRAS:");
+        List<String[]> historial = s.getHistorialCompras();
+        if (historial != null) {
+            for (String[] fila : historial) {
+                System.out.println("   " + String.join(" | ", fila));
+            }
+            System.out.println("   Total: " + historial.size() + " registros");
+        } else {
+            System.out.println("   (no implementado)");
+        }
+
+        System.out.println();
+    }
+
+    static void probarVacunaService() {
+        System.out.println("=== VACUNA SERVICE ===\n");
+
+        GanadoService gs = new GanadoService();
+        AplicacionVacunaService avs = new AplicacionVacunaService();
+        VacunaService s = new VacunaService(avs, gs);
+
+        System.out.println("1. mostrarTodo: " + s.mostrarTodo().size() + " vacunas");
+
+        Vacuna v = s.buscarPorId(1);
+        System.out.println("2. buscarPorId(1): " + (v != null ? v : "NO ENCONTRADO"));
+
+        System.out.println("3. buscarPorId(99): " + (s.buscarPorId(99) == null ? "null (correcto)" : "ERROR"));
+
+        s.insertar(new Vacuna(99, "Prueba", "Test", "5ml"));
+        System.out.println("4. insertar(99): " + (s.buscarPorId(99) != null ? "OK" : "ERROR"));
+
+        s.eliminar(99);
+        System.out.println("5. eliminar(99): " + (s.buscarPorId(99) == null ? "OK" : "ERROR"));
+
+        //Q4
+        System.out.println("\n6. Q4 - CONTROL DE VACUNACION:");
+        List<String[]> control = s.getControlVacunacion();
+        if (control != null) {
+            for (String[] fila : control) {
+                System.out.println("   " + String.join(" | ", fila));
+            }
+            System.out.println("   Total: " + control.size() + " registros");
+        } else {
+            System.out.println("   (no implementado)");
+        }
 
         System.out.println();
     }

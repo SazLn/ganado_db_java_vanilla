@@ -5,6 +5,6 @@ package co.upc.ganado.entidades.enums;
  * Estados: "sano", "enfermo".
  */
 public enum EnumEstadoSalud {
-    SANO,
-    ENFERMO
+    Sano,
+    Enfermo
 }
