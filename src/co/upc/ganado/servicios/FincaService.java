@@ -115,7 +115,7 @@ public class FincaService {
 
         //Recorrer la lista de fincas.
         for (Finca f : lista) {
-            int[] c = conteo.getOrDefault(f.getIdFinca(), new int[2]); //Devuelve el valor asociado a la clave si esta existe. Si no existe, devuelve un valor por defecto, en este caso un arreglo 'int[2]'.
+            int[] c = conteo.getOrDefault(f.getIdFinca(), new int[2]); //Devuelve el valor asociado a la clave si esta existe. Si no existe, devuelve un valor por defecto, en este caso un arreglo 'int[2]' pero no lo agrega al hashmap.
 
             //Meter los datos a la lista. 'c[0] = machos', 'c[1] = hembras', 'c[0] + c[1] = total'
             datos.add(new Object[]{f.getNombreFinca(), c[0], c[1], c[0] + c[1]});
