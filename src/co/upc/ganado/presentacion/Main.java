@@ -4,12 +4,18 @@ import co.upc.ganado.entidades.DetalleTraslado;
 import co.upc.ganado.entidades.DetalleCompra;
 import co.upc.ganado.entidades.Compra;
 import co.upc.ganado.entidades.Vacuna;
+import co.upc.ganado.entidades.Palpacion;
 import co.upc.ganado.servicios.DetalleTrasladoService;
 import co.upc.ganado.servicios.DetalleCompraService;
 import co.upc.ganado.servicios.GanadoService;
 import co.upc.ganado.servicios.CompraService;
 import co.upc.ganado.servicios.AplicacionVacunaService;
 import co.upc.ganado.servicios.VacunaService;
+import co.upc.ganado.servicios.PalpacionService;
+import co.upc.ganado.servicios.ResultadoPalpacionService;
+import co.upc.ganado.servicios.MachoService;
+import co.upc.ganado.servicios.HembraService;
+import co.upc.ganado.entidades.Macho;
 import java.util.List;
 
 public class Main {
@@ -19,6 +25,9 @@ public class Main {
         probarDetalleCompraService();
         probarCompraService();
         probarVacunaService();
+        probarPalpacionService();
+        probarMachoService();
+        probarHembraService();
     }
 
     static void probarDetalleTrasladoService() {
@@ -147,6 +156,102 @@ public class Main {
             System.out.println("   Total: " + control.size() + " registros");
         } else {
             System.out.println("   (no implementado)");
+        }
+
+        System.out.println();
+    }
+
+    static void probarPalpacionService() {
+        System.out.println("=== PALPACION SERVICE (Q3) ===\n");
+
+        GanadoService gs = new GanadoService();
+        ResultadoPalpacionService rs = new ResultadoPalpacionService();
+        PalpacionService s = new PalpacionService(rs, gs);
+
+        System.out.println("1. CRUD - mostrarTodo: " + s.mostrarTodo().size() + " palpaciones");
+
+        Palpacion p = s.buscarPorId(1);
+        System.out.println("2. buscarPorId(1): " + (p != null ? p : "NO ENCONTRADO"));
+
+        System.out.println("3. buscarPorId(99): " + (s.buscarPorId(99) == null ? "null (correcto)" : "ERROR"));
+
+        s.insertar(new Palpacion(99, "2026-05-22", null));
+        System.out.println("4. insertar(99): " + (s.buscarPorId(99) != null ? "OK" : "ERROR"));
+
+        s.eliminar(99);
+        System.out.println("5. eliminar(99): " + (s.buscarPorId(99) == null ? "OK" : "ERROR"));
+
+        //Q3
+        System.out.println("\n6. Q3 - HISTORIAL DE PALPACIONES (idHembra=23):");
+        List<String[]> historial = s.getHistorialPalpaciones(23);
+        if (historial != null) {
+            for (String[] fila : historial) {
+                System.out.println("   " + String.join(" | ", fila));
+            }
+            System.out.println("   Total: " + historial.size() + " registros");
+        } else {
+            System.out.println("   (null retornado)");
+        }
+
+        System.out.println("\n7. Q3 - CON ID MACHO (id=1) - debe mostrar mensaje:");
+        s.getHistorialPalpaciones(1);
+
+        System.out.println("\n8. Q3 - CON ID INEXISTENTE (id=999) - debe mostrar mensaje:");
+        s.getHistorialPalpaciones(999);
+
+        System.out.println();
+    }
+
+    static void probarMachoService() {
+        System.out.println("=== MACHO SERVICE (Q7) ===\n");
+
+        MachoService s = new MachoService();
+
+        System.out.println("1. CRUD - mostrarTodo: " + s.mostrarTodo().size() + " machos");
+
+        Macho m = s.buscarPorId(1);
+        System.out.println("2. buscarPorId(1): " + (m != null ? m : "NO ENCONTRADO"));
+
+        System.out.println("3. buscarPorId(99): " + (s.buscarPorId(99) == null ? "null (correcto)" : "ERROR"));
+
+        s.insertar(new Macho(null, false, null, null,
+                99, "TEST-99", null, 0, null, 1));
+        System.out.println("4. insertar(99): " + (s.buscarPorId(99) != null ? "OK" : "ERROR"));
+
+        s.eliminar(99);
+        System.out.println("5. eliminar(99): " + (s.buscarPorId(99) == null ? "OK" : "ERROR"));
+
+        //Q7
+        System.out.println("\n6. Q7 - HISTORIAL DE PADROTES:");
+        List<String[]> padrotes = s.getHistorialPadrotes();
+        if (padrotes != null && !padrotes.isEmpty()) {
+            for (String[] fila : padrotes) {
+                System.out.println("   " + String.join(" | ", fila));
+            }
+            System.out.println("   Total: " + padrotes.size() + " registros");
+        } else {
+            System.out.println("   (sin resultados o no implementado)");
+        }
+
+        System.out.println();
+    }
+
+    static void probarHembraService() {
+        System.out.println("=== HEMBRA SERVICE (Q2) ===\n");
+
+        HembraService s = new HembraService();
+
+        System.out.println("1. CRUD - mostrarTodo: " + s.mostrarTodo().size() + " hembras");
+
+        System.out.println("\n2. Q2 - ESTADO REPRODUCTIVO DEL HATO:");
+        List<String[]> hatos = s.getEstadoReproductivoHato();
+        if (hatos != null && !hatos.isEmpty()) {
+            for (String[] fila : hatos) {
+                System.out.println("   " + String.join(" | ", fila));
+            }
+            System.out.println("   Total: " + hatos.size() + " categorias");
+        } else {
+            System.out.println("   (sin resultados o no implementado)");
         }
 
         System.out.println();
