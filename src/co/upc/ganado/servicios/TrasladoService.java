@@ -2,8 +2,11 @@ package co.upc.ganado.servicios;
 
 import co.upc.ganado.entidades.Traslado;
 import co.upc.ganado.entidades.DetalleTraslado;
+import co.upc.ganado.entidades.Finca;
 import co.upc.ganado.datos.TrasladoData;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +86,53 @@ public class TrasladoService {
     //Q1: Trazabilidad de animal (requiere detalleService, ganadoService, fincaService)
     public List<String[]> getTrazabilidadAnimal(int idGanado) {
         List<String[]> datos = new ArrayList<>();
-        //TODO: implementar logica de la consulta utilizando hashmaps
+
+        //Crear el hashmap para los traslados. Clave = idTraslado, Valor = objeto Traslado.
+        Map<Integer, Traslado> trasladosMap = new HashMap<>();
+
+        //Llenar el hashmap con cada traslado de la lista.
+        for (Traslado t : lista) {
+            trasladosMap.put(t.getIdTraslado(), t);
+        }
+
+        //Crear el hashmap para las fincas. Clave = idFinca, Valor = nombreFinca.
+        Map<Integer, String> fincasMap = new HashMap<>();
+
+        //Llenar el hashmap con cada finca de la lista.
+        for (Finca f : fincaService.mostrarTodo()) {
+            fincasMap.put(f.getIdFinca(), f.getNombreFinca());
+        }
+
+        //Obtener el numero de marca del animal para mostrarlo en la trazabilidad.
+        String numeroMarca = ganadoService.buscarNumeroMarca(idGanado);
+
+        //Recorrer todos los detalles de traslado.
+        for (DetalleTraslado d : detalleService.mostrarTodo()) {
+
+            //Saltar los detalles que no pertenezcan al animal buscado. Filtro.
+            if (d.getIdGanado() != idGanado) continue;
+
+            //Obtener el traslado asociado al detalle mediante el hashmap.
+            Traslado t = trasladosMap.get(d.getIdTraslado());
+
+            //Por si el detalle apunta a un traslado que ya no existe. Registro huerfano.
+            if (t == null) continue;
+
+            //Obtener los nombres de las fincas desde el hashmap. "?" por si no existen.
+            String fincaOrigen = fincasMap.getOrDefault(t.getIdFincaOrigen(), "?");
+            String fincaDestino = fincasMap.getOrDefault(t.getIdFincaDestino(), "?");
+
+            //Meter los datos a la lista. [numeroMarca, fecha, motivo, fincaOrigen, fincaDestino, observaciones].
+            datos.add(new String[]{
+                numeroMarca,
+                t.getFechaTraslado(),
+                t.getMotivoTraslado().toString(),
+                fincaOrigen,
+                fincaDestino,
+                d.getObservaciones()
+            });
+        }
+
         return datos;
     }
 }

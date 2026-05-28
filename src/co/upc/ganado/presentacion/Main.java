@@ -5,6 +5,7 @@ import co.upc.ganado.entidades.DetalleCompra;
 import co.upc.ganado.entidades.Compra;
 import co.upc.ganado.entidades.Vacuna;
 import co.upc.ganado.entidades.Palpacion;
+import co.upc.ganado.entidades.Traslado;
 import co.upc.ganado.servicios.DetalleTrasladoService;
 import co.upc.ganado.servicios.DetalleCompraService;
 import co.upc.ganado.servicios.GanadoService;
@@ -15,6 +16,9 @@ import co.upc.ganado.servicios.PalpacionService;
 import co.upc.ganado.servicios.ResultadoPalpacionService;
 import co.upc.ganado.servicios.MachoService;
 import co.upc.ganado.servicios.HembraService;
+import co.upc.ganado.servicios.TrasladoService;
+import co.upc.ganado.servicios.DetalleTrasladoService;
+import co.upc.ganado.servicios.FincaService;
 import co.upc.ganado.entidades.Macho;
 import java.util.List;
 
@@ -28,6 +32,7 @@ public class Main {
         probarPalpacionService();
         probarMachoService();
         probarHembraService();
+        probarTrasladoService();
     }
 
     static void probarDetalleTrasladoService() {
@@ -250,6 +255,42 @@ public class Main {
                 System.out.println("   " + String.join(" | ", fila));
             }
             System.out.println("   Total: " + hatos.size() + " categorias");
+        } else {
+            System.out.println("   (sin resultados o no implementado)");
+        }
+
+        System.out.println();
+    }
+
+    static void probarTrasladoService() {
+        System.out.println("=== TRASLADO SERVICE (Q1) ===\n");
+
+        GanadoService gs = new GanadoService();
+        DetalleTrasladoService ds = new DetalleTrasladoService();
+        FincaService fs = new FincaService(gs);
+        TrasladoService s = new TrasladoService(ds, gs, fs);
+
+        System.out.println("1. CRUD - mostrarTodo: " + s.mostrarTodo().size() + " traslados");
+
+        Traslado t = s.buscarPorId(1);
+        System.out.println("2. buscarPorId(1): " + (t != null ? t : "NO ENCONTRADO"));
+
+        System.out.println("3. buscarPorId(99): " + (s.buscarPorId(99) == null ? "null (correcto)" : "ERROR"));
+
+        s.insertar(new Traslado(99, "2026-05-24", null, 0, 1, 2));
+        System.out.println("4. insertar(99): " + (s.buscarPorId(99) != null ? "OK" : "ERROR"));
+
+        s.eliminar(99);
+        System.out.println("5. eliminar(99): " + (s.buscarPorId(99) == null ? "OK" : "ERROR"));
+
+        //Q1
+        System.out.println("\n6. Q1 - TRAZABILIDAD ANIMAL (idGanado=3):");
+        List<String[]> trazabilidad = s.getTrazabilidadAnimal(3);
+        if (trazabilidad != null && !trazabilidad.isEmpty()) {
+            for (String[] fila : trazabilidad) {
+                System.out.println("   " + String.join(" | ", fila));
+            }
+            System.out.println("   Total: " + trazabilidad.size() + " registros");
         } else {
             System.out.println("   (sin resultados o no implementado)");
         }
