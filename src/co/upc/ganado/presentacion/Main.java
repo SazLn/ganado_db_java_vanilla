@@ -1,41 +1,20 @@
 package co.upc.ganado.presentacion;
 
-import co.upc.ganado.entidades.DetalleTraslado;
-import co.upc.ganado.entidades.DetalleCompra;
-import co.upc.ganado.entidades.Compra;
-import co.upc.ganado.entidades.Vacuna;
-import co.upc.ganado.entidades.Palpacion;
-import co.upc.ganado.entidades.Traslado;
-import co.upc.ganado.servicios.DetalleTrasladoService;
-import co.upc.ganado.servicios.DetalleCompraService;
-import co.upc.ganado.servicios.GanadoService;
-import co.upc.ganado.servicios.CompraService;
-import co.upc.ganado.servicios.AplicacionVacunaService;
-import co.upc.ganado.servicios.VacunaService;
-import co.upc.ganado.servicios.PalpacionService;
-import co.upc.ganado.servicios.ResultadoPalpacionService;
-import co.upc.ganado.servicios.MachoService;
-import co.upc.ganado.servicios.HembraService;
-import co.upc.ganado.servicios.TrasladoService;
-import co.upc.ganado.servicios.DetalleTrasladoService;
-import co.upc.ganado.servicios.FincaService;
-import co.upc.ganado.servicios.LoginService;
-import co.upc.ganado.entidades.Macho;
-import java.util.List;
+import javax.swing.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        probarDetalleTrasladoService();
-        probarDetalleCompraService();
-        probarCompraService();
-        probarVacunaService();
-        probarPalpacionService();
-        probarMachoService();
-        probarHembraService();
-        probarTrasladoService();
-        probarLoginService();
+        SwingUtilities.invokeLater(() -> {
+            LoginFrame login = new LoginFrame();
+            login.setLocationRelativeTo(null); // Centra la ventana
+            login.setVisible(true);
+        });
     }
+
+    /* ============================================================
+       CÓDIGO DE PRUEBAS EN CONSOLA (original) — comentado
+       ============================================================
 
     static void probarDetalleTrasladoService() {
         System.out.println("=== DETALLE TRASLADO SERVICE ===\n");
@@ -312,4 +291,5 @@ public class Main {
 
         System.out.println();
     }
+    */  // fin del bloque de pruebas en consola
 }

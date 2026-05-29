@@ -72,6 +72,9 @@ build/
 # Visual Studio Code
 .vscode/
 
+# GUI prototypes (borradores)
+src/co/upc/ganado/borradores/
+
 # OS-generated files
 ._*
 .Spotlight-V100
