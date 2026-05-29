@@ -1,0 +1,13 @@
+# Archivo de ejemplo — usuarios del sistema
+# Formato: usuario~contrasena~rol
+# Separador: ~ (virgulilla)
+#
+# Para agregar usuarios, copia este archivo como 'usuarios.csv'
+# en la misma carpeta y completa los datos. Ejemplo:
+#
+# admin~admin123~Administrador
+# user~user123~Usuario
+#
+# NOTA: NO editar este archivo, es solo referencia.
+#      Crear/editar 'usuarios.csv' (ignorado por git).
+usuario~contrasena~rol

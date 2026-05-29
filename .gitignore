@@ -1,6 +1,9 @@
 # Markdown files (user requested not to upload to GitHub)
 *.md
 
+# User credentials (real data, not uploaded)
+data/usuarios.csv
+
 # NetBeans project files
 nbproject/
 build/

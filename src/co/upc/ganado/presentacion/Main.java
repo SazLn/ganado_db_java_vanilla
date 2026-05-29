@@ -19,6 +19,7 @@ import co.upc.ganado.servicios.HembraService;
 import co.upc.ganado.servicios.TrasladoService;
 import co.upc.ganado.servicios.DetalleTrasladoService;
 import co.upc.ganado.servicios.FincaService;
+import co.upc.ganado.servicios.LoginService;
 import co.upc.ganado.entidades.Macho;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class Main {
         probarMachoService();
         probarHembraService();
         probarTrasladoService();
+        probarLoginService();
     }
 
     static void probarDetalleTrasladoService() {
@@ -294,6 +296,19 @@ public class Main {
         } else {
             System.out.println("   (sin resultados o no implementado)");
         }
+
+        System.out.println();
+    }
+
+    static void probarLoginService() {
+        System.out.println("=== LOGIN SERVICE ===\n");
+
+        LoginService s = new LoginService();
+
+        System.out.println("1. admin/admin123: " + (s.validar("admin", "admin123") ? "OK" : "ERROR"));
+        System.out.println("2. user/user123: " + (s.validar("user", "user123") ? "OK" : "ERROR"));
+        System.out.println("3. admin/malpass: " + (s.validar("admin", "malpass") ? "ERROR" : "OK (rechazado)"));
+        System.out.println("4. inexistente/pass: " + (s.validar("inexistente", "pass") ? "ERROR" : "OK (rechazado)"));
 
         System.out.println();
     }
