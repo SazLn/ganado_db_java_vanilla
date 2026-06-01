@@ -70,6 +70,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         btnIngresar.setFont(new java.awt.Font("Fira Sans", 1, 16)); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(this::btnIngresarActionPerformed);
 
         lblAdvertencia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAdvertencia.setText("  ");
@@ -136,6 +137,10 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textfieldContrasenaActionPerformed
 
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LoginPanel;
@@ -169,9 +174,16 @@ public class LoginFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,
                     "Inicio de sesi\u00f3n exitoso. Bienvenido " + usuario + ".",
                     "Acceso concedido", JOptionPane.INFORMATION_MESSAGE); //'JOptionPane.INFORMATION_MESSAGE' solo es el ícono.
-            // Aqu\u00ed se abrir\u00e1 el MainFrame cuando est\u00e9 implementado
-            // new MainFrame().setVisible(true);
-            dispose();
+            
+            textfieldContrasena.setText(""); //Limpia el campo de contraseña.
+            
+            dispose();//Cierra la ventan actual liberando sus recursos.
+            
+            
+            MainFrame mainframe = new MainFrame(this); //Crea y muestra el 'MainFrame'.
+            mainframe.setLocationRelativeTo(null);
+            mainframe.setVisible(true);
+         
         } else {
             lblAdvertencia.setText("Usuario o contrase\u00f1a incorrectos.");
             lblAdvertencia.setVisible(true);

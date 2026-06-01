@@ -1,15 +1,17 @@
 package co.upc.ganado.presentacion;
 
+import co.upc.ganado.borradores.MainFrameBorrador;
 import javax.swing.*;
 
 public class Main {
-
+    //Hacer cada parte de la GUI junto con sus funcionalidades y lógica para validar errores.
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            LoginFrame login = new LoginFrame();
-            login.setLocationRelativeTo(null); // Centra la ventana
-            login.setVisible(true);
-        });
+//        SwingUtilities.invokeLater(() -> new MainFrameBorrador("Admin").setVisible(true));
+
+        LoginFrame login = new LoginFrame();
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
+        
     }
 
     /* ============================================================
