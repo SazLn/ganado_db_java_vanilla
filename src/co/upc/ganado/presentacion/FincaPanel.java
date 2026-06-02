@@ -47,7 +47,7 @@ public class FincaPanel extends JPanel {
         //Mete la tabla dentro de un ScrollPane (Barras de desplazamiento) por si la tabla tiene más filas de las que caben en la pantalla.
         //Con 'BorderLayout.CENTER' centra el ScrollPane con todo y tabla para que ocupe todo el espacio disponible.
         //Este es un componente que se añade al panel.
-        add(new JScrollPane(tabla), BorderLayout.CENTER); 
+        this.add(new JScrollPane(tabla), BorderLayout.CENTER); 
     }
 
     /**

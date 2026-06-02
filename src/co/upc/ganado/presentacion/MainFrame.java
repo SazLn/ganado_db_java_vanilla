@@ -1,9 +1,7 @@
 
 package co.upc.ganado.presentacion;
 
-import co.upc.ganado.servicios.FincaService;
-import co.upc.ganado.servicios.GanadoService;
-import co.upc.ganado.servicios.HembraService;
+import co.upc.ganado.servicios.*;
 import java.awt.Component;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -23,6 +21,11 @@ public class MainFrame extends javax.swing.JFrame {
     private FincaService fincaServicio;
     private GanadoService ganadoServicio;
     private HembraService hembraServicio;
+    private TrasladoService trasladoServicio;
+    private PalpacionService palpacionServicio;
+    private VacunaService vacunaServicio;
+    private CompraService compraServicio;
+    private MachoService machoServicio;
     
     private JTable tabla;
     private DefaultTableModel modeloTabla;
@@ -38,6 +41,11 @@ public class MainFrame extends javax.swing.JFrame {
         ganadoServicio = new GanadoService();
         fincaServicio = new FincaService(ganadoServicio);
         hembraServicio = new HembraService();
+        trasladoServicio = new TrasladoService(new DetalleTrasladoService(), ganadoServicio, fincaServicio);
+        palpacionServicio = new PalpacionService(new ResultadoPalpacionService(), ganadoServicio);
+        vacunaServicio = new VacunaService(new AplicacionVacunaService(), ganadoServicio);
+        compraServicio = new CompraService(new DetalleCompraService(), ganadoServicio);
+        machoServicio = new MachoService();
         
         initComponents();
         
@@ -98,6 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnPanelVacunas.setText("Vacunas");
 
         btnPanelConsultas.setText("Consultas");
+        btnPanelConsultas.addActionListener(this::btnPanelConsultasActionPerformed);
 
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.addActionListener(this::btnCerrarSesionActionPerformed);
@@ -290,6 +299,20 @@ public class MainFrame extends javax.swing.JFrame {
             ((HembraPanel) componenteACtivo).eliminar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnPanelConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelConsultasActionPerformed
+        //Verificar si el tab/Pestaña ya existe en el JTabbedPane
+        int indicePestaña = jTabbedPane1.indexOfTab("Consultas"); //Obtine la posición de la pestaña según el título de la misma (0...n).
+        
+        if (indicePestaña == -1) {
+            //La pestaña no existe. Toca crear una nueva instancia del panel y añadirla al JTabbedPane.
+            jTabbedPane1.addTab("Consultas", new ConsultasPanel(trasladoServicio, hembraServicio, palpacionServicio, vacunaServicio, fincaServicio, compraServicio, machoServicio));
+
+        }
+        
+        //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Consultas"));
+    }//GEN-LAST:event_btnPanelConsultasActionPerformed
     
     
     

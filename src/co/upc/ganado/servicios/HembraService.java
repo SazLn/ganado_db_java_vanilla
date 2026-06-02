@@ -96,10 +96,10 @@ public class HembraService {
         }
 
         //Recorrer el hashmap.
-        for (Map.Entry<String, Integer> e : conteo.entrySet()) { //entrySet() devuelve el conjunto de parejas clave-valor.
+        for (Map.Entry<String, Integer> pareja : conteo.entrySet()) { //entrySet() devuelve el conjunto de parejas clave-valor.
             
             //Meter los datos a la lista.
-            datos.add(new String[]{e.getKey(), String.valueOf(e.getValue())});
+            datos.add(new String[]{pareja.getKey(), String.valueOf(pareja.getValue())});
         }
 
         return datos;

@@ -56,7 +56,7 @@ public class HembraPanel extends JPanel {
         tabla = new JTable(modeloTabla);
         
         //Añadir componente(tabla) al panel.
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        this.add(new JScrollPane(tabla), BorderLayout.CENTER);
         
     }
     

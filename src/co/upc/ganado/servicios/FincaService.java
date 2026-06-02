@@ -107,7 +107,7 @@ public class FincaService {
 
                 //Cuenta las hembras.
                 int[] hembras = conteo.get(g.getIdFinca());
-                hembras[0]++;
+                hembras[1]++;
             }
         }
 

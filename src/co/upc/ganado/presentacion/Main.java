@@ -12,6 +12,8 @@ public class Main {
         login.setLocationRelativeTo(null);
         login.setVisible(true);
         
+        //TODO: validar que la entrada de datos del usuario al crear un nuevo registro no duplique los datos del ID.
+        //TODO: formatear los precios.
     }
 
     /* ============================================================
