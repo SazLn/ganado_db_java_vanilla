@@ -12,9 +12,10 @@ public class Main {
         login.setLocationRelativeTo(null);
         login.setVisible(true);
         
-        //TODO: validar que la entrada de datos del usuario al crear un nuevo registro no duplique los datos del ID.
-        //TODO: formatear los precios.
-        //REvisar si se puede añadir una opción para cerrar una pestaña del JTabbedPane
+        //TODO: formatear los precios y hacer que los botones CRUD sean visibles o no dependiendo del panel.
+
+        
+        
     }
 
     /* ============================================================

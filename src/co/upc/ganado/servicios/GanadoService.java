@@ -31,14 +31,15 @@ public class GanadoService {
     
     // ===== CRUD =====
     
-
-    public void insertar(Ganado nuevoGanado) {
+    //Código comentado ya que no es necesario para el pánel de la GUI.
+    
+    /*public void insertar(Ganado nuevoGanado) {
         lista.add(nuevoGanado);
         data.insertarGanado(nuevoGanado);
-    }
+    }*/
 
     //NOTA: Soft delete. No elimina fisicamente, cambia estadoVida a Muerto o Vendido.
-    public void eliminar(int idGanado) {
+    /*public void eliminar(int idGanado) {
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getIdGanado() == idGanado) {
                 lista.get(i).setEstadoVida(EnumEstadoVida.Muerto);
@@ -46,7 +47,7 @@ public class GanadoService {
                 return;
             }
         }
-    }
+    }*/
 
     
     public Ganado buscarPorId(int idGanado) {
@@ -62,7 +63,7 @@ public class GanadoService {
     }
 
     
-    public void actualizarRegistro(Ganado ganadoActualizado) {
+    /*public void actualizarRegistro(Ganado ganadoActualizado) {
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getIdGanado() == ganadoActualizado.getIdGanado()) {
                 lista.set(i, ganadoActualizado);
@@ -70,7 +71,7 @@ public class GanadoService {
                 return;
             }
         }
-    }
+    }*/
 
     //Retorna el numero de marca de un animal por su id.
     public String buscarNumeroMarca(int idGanado) {

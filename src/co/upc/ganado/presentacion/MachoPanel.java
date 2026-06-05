@@ -100,7 +100,7 @@ public class MachoPanel extends JPanel {
                 m.getIdGanado(),
                 m.getNumeroMarca(),
                 m.getTipoSexo(),
-                m.getPeso(),
+                String.format("%,.2f", m.getPeso()),
                 m.getIdFinca(),
                 m.getEstadoSalud(),
                 m.getCalidadReproductiva(),
@@ -142,6 +142,14 @@ public class MachoPanel extends JPanel {
         String idGanado = JOptionPane.showInputDialog("Ingrese el ID del ganado:");
         if (idGanado == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (idGanado.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El ID no puede estar vacio."); return; }
+        
+        try {
+            int prueba = Integer.parseInt(idGanado);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         if (mapaGanadoId.get(Integer.parseInt(idGanado)) != null) {JOptionPane.showMessageDialog(null, "El ID ingresado ya existe.", "Advertencia", JOptionPane.WARNING_MESSAGE); return;}; //Validar que el usuario no ingrese datos duplicados.
         
         //Número de marca

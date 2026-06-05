@@ -1,6 +1,7 @@
 package co.upc.ganado.presentacion;
 
 import co.upc.ganado.servicios.GanadoService;
+import co.upc.ganado.entidades.Ganado;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -40,7 +41,7 @@ public class GanadoPanel extends JPanel {
      * Inicializa los componentes graficos del panel.
      */
     private void inicializarPanel() {
-        setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
         String[] columnas = {"ID", "Marca", "Sexo", "Peso",
                              "Estado Salud", "Estado Vida", "Finca",
@@ -56,27 +57,41 @@ public class GanadoPanel extends JPanel {
      * Recarga los datos de la tabla desde el servicio.
      */
     public void cargarTabla() {
+        //Limpiar modelo de tabla.
+        modeloTabla.setRowCount(0);
+        
+        //Rellenar modelo de tabla.
+        for (Ganado g : ganadoServicio.mostrarTodo()) {
+            modeloTabla.addRow(new Object[] {
+                g.getIdGanado(),
+                g.getNumeroMarca(),
+                g.getTipoSexo(),
+                String.format("%,.2f", g.getPeso()),
+                g.getEstadoSalud(),
+                g.getEstadoVida(),
+                g.getIdFinca(),
+                g.getFechaNacimiento()
+            });
+        }
+        
     }
 
     
-    //Primero que nada, creo que es redundante que este panel tenga operaciones crud dado que dichas operaciones pueden ser hechas por
-    //macho y hembra respectivamente.
+    //Código comentado puesto que no es necesario para el panel.
     
-    /**
-     * Abre un dialogo para crear un nuevo registro de ganado.
-     */
+    /*
+    
+    
     public void nuevo() {
     }
 
-    /**
-     * Abre un dialogo para editar el registro seleccionado.
-     */
+    
     public void editar() {
     }
 
-    /**
-     * Elimina el registro seleccionado tras confirmacion.
-     */
+    
     public void eliminar() {
     }
+    */
+    
 }

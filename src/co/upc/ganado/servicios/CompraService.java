@@ -93,7 +93,7 @@ public class CompraService {
             String fechaCompra = lista.get(i).getFechaCompra();
             String proveedor = lista.get(i).getProveedor();
             String responsable = lista.get(i).getResponsableCompra();
-            String valorTotal = String.valueOf(lista.get(i).getValorTotalCompra());
+            String valorTotal = String.format("%,.2f", lista.get(i).getValorTotalCompra());
             
             //Obtener los detalles de la compra.
             List<DetalleCompra> detalles = detalleService.buscarPorCompra(lista.get(i).getIdCompra());
@@ -101,7 +101,7 @@ public class CompraService {
             //Recorrer cada detalle.
             for (DetalleCompra detalle : detalles) {
                 //Extraer los datos del detalle.
-                String precioIndividual = String.valueOf(detalle.getPrecioIndividual());
+                String precioIndividual = String.format("%,.2f", detalle.getPrecioIndividual());
                 int idGanado = detalle.getIdGanado();
                 
                 //Extraer el número de marca del animal.

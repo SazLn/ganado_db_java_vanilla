@@ -39,7 +39,9 @@ public class GanadoData {
         return ganado;
     }
     
-    public void insertarGanado(Ganado nuevoGanado) {
+    //Código comentado ya que no es necesario para el pánel de la GUI.
+    
+    /*public void insertarGanado(Ganado nuevoGanado) {
         //Validar si el animal es macho o hembra.
         if (nuevoGanado instanceof Macho) {
             Macho nuevoMacho = (Macho) nuevoGanado;
@@ -50,9 +52,9 @@ public class GanadoData {
             
             hembra.insertarHembra(nuevaHembra);
         }
-    }
+    }*/
     
-    public void actualizarGanado(Ganado ganadoActualizar) {
+    /*public void actualizarGanado(Ganado ganadoActualizar) {
         //Validar si el animal es macho o hembra.
         if (ganadoActualizar instanceof Macho) {
             Macho machoActualizar = (Macho) ganadoActualizar;
@@ -63,10 +65,10 @@ public class GanadoData {
             
             hembra.actualizarHembra(hembraActualizar);
         }
-    }
+    }*/
     
     
-    public void eliminarGanado(int id) {
+    /*public void eliminarGanado(int id) {
         if (macho.eliminarMacho(id)) {
             System.out.println("Macho eliminado correctamente.");
         
@@ -76,5 +78,5 @@ public class GanadoData {
         } else {
             System.out.println("No se encuentra ningún animal registrado con el id " + id);
         }
-    }
+    }*/
 }

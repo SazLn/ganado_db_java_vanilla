@@ -66,7 +66,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnCerrarSesion" min="-2" pref="155" max="-2" attributes="0"/>
                           <Component id="btnPanelCompras" min="-2" pref="120" max="-2" attributes="0"/>
@@ -82,7 +82,7 @@
                               <Component id="btnPanelPalpaciones" alignment="0" pref="120" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -129,6 +129,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ganado"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPanelGanadoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPanelMachos">
               <Properties>
@@ -150,6 +153,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Compras"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPanelComprasActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPanelVentas">
               <Properties>
@@ -170,6 +176,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vacunas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPanelVacunasActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPanelConsultas">
               <Properties>

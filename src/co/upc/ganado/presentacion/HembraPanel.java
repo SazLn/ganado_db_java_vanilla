@@ -1,7 +1,9 @@
 package co.upc.ganado.presentacion;
 
 
+import co.upc.ganado.entidades.Ganado;
 import co.upc.ganado.entidades.Hembra;
+import co.upc.ganado.servicios.GanadoService;
 import co.upc.ganado.servicios.HembraService;
 import co.upc.ganado.entidades.enums.EnumEstadoReproductivo;
 import co.upc.ganado.entidades.enums.EnumEstadoSalud;
@@ -9,6 +11,7 @@ import co.upc.ganado.entidades.enums.EnumSexo;
 
 import java.awt.BorderLayout;
 import java.awt.ScrollPane; //Para usar JScrollPane
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,14 +22,16 @@ import javax.swing.table.DefaultTableModel;
 public class HembraPanel extends JPanel {
     
     HembraService hembraServicio;
+    GanadoService ganadoServicio;
     
     JTable tabla;
     DefaultTableModel modeloTabla;
 
     //Constructor
-    public HembraPanel(HembraService hs) {
-        //Inicialzar servicio
+    public HembraPanel(HembraService hs, GanadoService gs) {
+        //Inicialzar servicios
         this.hembraServicio = hs;
+        this.ganadoServicio = gs;
         inicializarPanel();
         cargarTabla();
     }
@@ -35,7 +40,7 @@ public class HembraPanel extends JPanel {
     
     public void inicializarPanel() {
         //Definir el layout del panel.
-        setLayout(new BorderLayout()); //Par que se centre y ocupe todo el espacio disponible.
+        this.setLayout(new BorderLayout()); //Par que se centre y ocupe todo el espacio disponible.
         
         //Definir los títulos de las columnas.
         String[] columnas = {"ID", 
@@ -70,7 +75,7 @@ public class HembraPanel extends JPanel {
                 h.getIdGanado(),
                 h.getNumeroMarca(),
                 h.getTipoSexo(),
-                h.getPeso(),
+                String.format("%,.2f", h.getPeso()),
                 h.getIdFinca(),
                 h.getEstadoSalud(),
                 h.getEstadoReproductivoActual(),
@@ -85,39 +90,74 @@ public class HembraPanel extends JPanel {
         //Extraer los estados reproductivos y estado de salud. Para la lista de opciones.
          EnumEstadoReproductivo[] estados = EnumEstadoReproductivo.values();
          EnumEstadoSalud[] saludValores = EnumEstadoSalud.values();
+         
+        //Hashmaps para validar la entrada de datos.
+        HashMap<Integer, Ganado> mapaGanadoId = new HashMap<>();
+        HashMap<String, Ganado> mapaGanadoMarca = new HashMap<>();
         
+        //Rellenar el hashmap para validar entrada de datos del ID.
+        for (Ganado g : ganadoServicio.mostrarTodo()) {
+            mapaGanadoId.put(g.getIdGanado(), g);
+        }
+        
+        //Rellenar el hashmap para validar entrada de datos del número de marca.
+        for (Ganado g : ganadoServicio.mostrarTodo()) {
+            mapaGanadoMarca.put(g.getNumeroMarca(), g);
+        }
+        
+        //---------ENTRADA DE DATOS----------//
+        
+        //ID
         String idGanado = JOptionPane.showInputDialog("Ingrese el ID del ganado:");
         if (idGanado == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (idGanado.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El ID no puede estar vacio."); return; }
         
+        try {
+            int prueba = Integer.parseInt(idGanado);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (mapaGanadoId.get(Integer.parseInt(idGanado)) != null) { JOptionPane.showMessageDialog(null, "El ID ingresado ya existe.", "Advertencia", JOptionPane.WARNING_MESSAGE); return; }
+        
+        //Número de marca
         String numeroMarca = JOptionPane.showInputDialog("Ingrese el numero de marca:");
         if (numeroMarca == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (numeroMarca.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "La marca no puede estar vacia."); return; }
+        if (mapaGanadoMarca.get(numeroMarca) != null) { JOptionPane.showMessageDialog(null, "La marca ingresada ya existe.", "Advertencia", JOptionPane.WARNING_MESSAGE); return; }
         
+        //Sexo (hardcodeado)
         EnumSexo tipoSexo = EnumSexo.H;
         
+        //Peso
         String peso = JOptionPane.showInputDialog("Ingrese el peso:");
         if (peso == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (peso.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El peso no puede estar vacio."); return; }
         
-       
+        //Estado Salud
         EnumEstadoSalud estadoSalud = (EnumEstadoSalud) JOptionPane.showInputDialog(null, "Seleccione el estado de salud:", "Estado Salud", JOptionPane.QUESTION_MESSAGE, null, saludValores, saludValores[0]);
         if (estadoSalud == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         
+        //Finca
         String idFinca = JOptionPane.showInputDialog("Ingrese el ID de la finca:");
         if (idFinca == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (idFinca.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El ID de la finca no puede estar vacio."); return; }
         
+        //Estado Reproductivo
         EnumEstadoReproductivo estadoReproductivo = (EnumEstadoReproductivo) JOptionPane.showInputDialog(null, "Ingrese el estado reproductivo:", "Estado", JOptionPane.QUESTION_MESSAGE, null, estados, estados[0]);
         if (estadoReproductivo == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         
+        //Fecha Ultimo Parto
         String fechaUltimoParto = JOptionPane.showInputDialog("Ingrese la fecha del ultimo parto (YYYY-MM-DD) o Enter si no tiene:");
         if (fechaUltimoParto == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         
+        //Numero Partos
         String numeroPartos = JOptionPane.showInputDialog("Ingrese el numero de partos:");
         if (numeroPartos == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (numeroPartos.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El numero de partos no puede estar vacio."); return; }
         
+        //Apta Reproduccion
         int aptaReproduccion = JOptionPane.showConfirmDialog(null, "La hembra es apta para reproduccion?", "Reproduccion", JOptionPane.YES_NO_OPTION);
         if (aptaReproduccion == JOptionPane.CLOSED_OPTION) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; } //Cuando el usuario cierra la ventana sin seleccionar ninguna de las opciones disponibles.
         

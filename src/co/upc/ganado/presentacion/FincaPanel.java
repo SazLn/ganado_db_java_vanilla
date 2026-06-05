@@ -38,7 +38,7 @@ public class FincaPanel extends JPanel {
      * Inicializa los componentes graficos del panel.
      */
     private void inicializarPanel() {
-        setLayout(new BorderLayout()); //Para que el panel ocupe todo el espcio disponible del JTabbedPane (alto y ancho)
+        this.setLayout(new BorderLayout()); //Para que el panel ocupe todo el espcio disponible del JTabbedPane (alto y ancho)
 
         String[] columnas = {"ID", "Nombre", "Ubicacion"}; //Los títulos de las columnas.
         modeloTabla = new DefaultTableModel(columnas, 0); //Crea el modelo de tabla con 3 columnas pero sin filas.
@@ -82,6 +82,13 @@ public class FincaPanel extends JPanel {
         //Si se cierra algun cuadro de diálogo o se presiona el boton de cancelar, se aborta toda la operacion.
         if (idFinca == null || nombre == null || ubicacion == null) {
             JOptionPane.showMessageDialog(null, "Operación cancelada.");
+            return;
+        }
+        
+        try {
+            int prueba = Integer.parseInt(idFinca);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -156,6 +163,8 @@ public class FincaPanel extends JPanel {
         }
     }
 
+    
+    
     /**
      * Elimina la finca seleccionada.
      * Muestra un dialogo de confirmacion antes de eliminar

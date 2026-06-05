@@ -80,7 +80,7 @@ public class ConsultasPanel extends JPanel {
      */
     private void inicializarPanel() {
         //Definir layout del panel.
-        setLayout(new BorderLayout()); //Para que ocupe todo el espacio disponible.
+        this.setLayout(new BorderLayout()); //Para que ocupe todo el espacio disponible.
         
         
         //Definir opciones del JComboBox.

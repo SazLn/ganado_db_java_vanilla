@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainFrame extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
+    //private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
     private static LoginFrame login;
     
     //Para obtener la info para los páneles.
@@ -25,6 +25,7 @@ public class MainFrame extends javax.swing.JFrame {
     private PalpacionService palpacionServicio;
     private VacunaService vacunaServicio;
     private CompraService compraServicio;
+    private VentaService ventaServicio;
     private MachoService machoServicio;
     
     private JTable tabla;
@@ -45,6 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
         palpacionServicio = new PalpacionService(new ResultadoPalpacionService(), ganadoServicio);
         vacunaServicio = new VacunaService(new AplicacionVacunaService(), ganadoServicio);
         compraServicio = new CompraService(new DetalleCompraService(), ganadoServicio);
+        ventaServicio = new VentaService();
         machoServicio = new MachoService();
         
         initComponents();
@@ -89,6 +91,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnPanelFinca.addActionListener(this::btnPanelFincaActionPerformed);
 
         btnPanelGanado.setText("Ganado");
+        btnPanelGanado.addActionListener(this::btnPanelGanadoActionPerformed);
 
         btnPanelMachos.setText("Machos");
         btnPanelMachos.addActionListener(this::btnPanelMachosActionPerformed);
@@ -97,14 +100,19 @@ public class MainFrame extends javax.swing.JFrame {
         btnPanelHembras.addActionListener(this::btnPanelHembrasActionPerformed);
 
         btnPanelCompras.setText("Compras");
+        btnPanelCompras.addActionListener(this::btnPanelComprasActionPerformed);
 
         btnPanelVentas.setText("Ventas");
+        btnPanelVentas.addActionListener(this::btnPanelVentasActionPerformed);
 
         btnPanelTraslados.setText("Traslados");
+        btnPanelTraslados.addActionListener(this::btnPanelTrasladosActionPerformed);
 
         btnPanelPalpaciones.setText("Palpaciones");
+        btnPanelPalpaciones.addActionListener(this::btnPanelPalpacionesActionPerformed);
 
         btnPanelVacunas.setText("Vacunas");
+        btnPanelVacunas.addActionListener(this::btnPanelVacunasActionPerformed);
 
         btnPanelConsultas.setText("Consultas");
         btnPanelConsultas.addActionListener(this::btnPanelConsultasActionPerformed);
@@ -117,7 +125,7 @@ public class MainFrame extends javax.swing.JFrame {
         mainFramePanelLayout.setHorizontalGroup(
             mainFramePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainFramePanelLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(49, 49, 49)
                 .addGroup(mainFramePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPanelCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,7 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(mainFramePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnPanelConsultas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPanelPalpaciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
-                .addGap(0, 56, Short.MAX_VALUE))
+                .addGap(0, 44, Short.MAX_VALUE))
         );
         mainFramePanelLayout.setVerticalGroup(
             mainFramePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,16 +240,18 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnPanelHembrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelHembrasActionPerformed
+        mostrarCrud();
         int indicePestaña = jTabbedPane1.indexOfTab("Hembras");
         
         if (indicePestaña == -1) {
-            jTabbedPane1.addTab("Hembras", new HembraPanel(hembraServicio));
+            jTabbedPane1.addTab("Hembras", new HembraPanel(hembraServicio, ganadoServicio));
         }
         
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Hembras"));
     }//GEN-LAST:event_btnPanelHembrasActionPerformed
 
     private void btnPanelFincaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelFincaActionPerformed
+        mostrarCrud();
         //Verificar si el tab/Pestaña ya existe en el JTabbedPane
         int indicePestaña = jTabbedPane1.indexOfTab("Finca"); //Obtine la posición de la pestaña según el título de la misma (0...n).
         
@@ -272,10 +282,23 @@ public class MainFrame extends javax.swing.JFrame {
         //Validar si el componente es una instancia de algún panel.
         if (componenteACtivo instanceof FincaPanel) {
             ((FincaPanel) componenteACtivo).nuevo();
+            
         } else if (componenteACtivo instanceof HembraPanel) {
             ((HembraPanel) componenteACtivo).nuevo();
+            
         } else if (componenteACtivo instanceof MachoPanel) {
             ((MachoPanel) componenteACtivo).nuevo();
+            
+        } else if (componenteACtivo instanceof CompraPanel) {
+            ((CompraPanel) componenteACtivo).nuevo();
+        } else if (componenteACtivo instanceof VentaPanel) {
+            ((VentaPanel) componenteACtivo).nuevo();
+        } else if (componenteACtivo instanceof TrasladoPanel) {
+            ((TrasladoPanel) componenteACtivo).nuevo();
+        } else if (componenteACtivo instanceof VacunaPanel) {
+            ((VacunaPanel) componenteACtivo).nuevo();
+        } else if (componenteACtivo instanceof PalpacionPanel) {
+            ((PalpacionPanel) componenteACtivo).nuevo();
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -292,6 +315,16 @@ public class MainFrame extends javax.swing.JFrame {
             ((HembraPanel) componenteACtivo).editar();
         } else if (componenteACtivo instanceof MachoPanel) {
             ((MachoPanel) componenteACtivo).editar();
+        } else if (componenteACtivo instanceof CompraPanel) {
+            ((CompraPanel) componenteACtivo).editar();
+        } else if (componenteACtivo instanceof VentaPanel) {
+            ((VentaPanel) componenteACtivo).editar();
+        } else if (componenteACtivo instanceof TrasladoPanel) {
+            ((TrasladoPanel) componenteACtivo).editar();
+        } else if (componenteACtivo instanceof VacunaPanel) {
+            ((VacunaPanel) componenteACtivo).editar();
+        } else if (componenteACtivo instanceof PalpacionPanel) {
+            ((PalpacionPanel) componenteACtivo).editar();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -304,12 +337,27 @@ public class MainFrame extends javax.swing.JFrame {
             ((HembraPanel) componenteACtivo).eliminar();
         } else if (componenteACtivo instanceof MachoPanel) {
             ((MachoPanel) componenteACtivo).eliminar();
+        } else if (componenteACtivo instanceof CompraPanel) {
+            ((CompraPanel) componenteACtivo).eliminar();
+        } else if (componenteACtivo instanceof VentaPanel) {
+            ((VentaPanel) componenteACtivo).eliminar();
+        } else if (componenteACtivo instanceof TrasladoPanel) {
+            ((TrasladoPanel) componenteACtivo).eliminar();
+        } else if (componenteACtivo instanceof VacunaPanel) {
+            ((VacunaPanel) componenteACtivo).eliminar();
+        } else if (componenteACtivo instanceof PalpacionPanel) {
+            ((PalpacionPanel) componenteACtivo).eliminar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     
     
     //Para abrir el panel de consultas.
     private void btnPanelConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelConsultasActionPerformed
+        //Ocultar CRUD
+        btnEditar.setVisible(false);
+        btnEliminar.setVisible(false);
+        btnNuevo.setVisible(false);
+
         //Verificar si el tab/Pestaña ya existe en el JTabbedPane
         int indicePestaña = jTabbedPane1.indexOfTab("Consultas"); //Obtine la posición de la pestaña según el título de la misma (0...n).
         
@@ -321,11 +369,14 @@ public class MainFrame extends javax.swing.JFrame {
         
         //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Consultas"));
+        
+        //btnEliminar.setVisible(false); no se hace visible automáticamente al cambiar de panel.
     }//GEN-LAST:event_btnPanelConsultasActionPerformed
 
     //Para abrir el panel de machos
     private void btnPanelMachosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelMachosActionPerformed
-         //Verificar si el tab/Pestaña ya existe en el JTabbedPane
+        mostrarCrud();
+        //Verificar si el tab/Pestaña ya existe en el JTabbedPane
         int indicePestaña = jTabbedPane1.indexOfTab("Machos"); //Obtine la posición de la pestaña según el título de la misma (0...n).
         
         if (indicePestaña == -1) {
@@ -337,13 +388,98 @@ public class MainFrame extends javax.swing.JFrame {
         //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Machos"));
     }//GEN-LAST:event_btnPanelMachosActionPerformed
-    
-    
-    
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnPanelGanadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelGanadoActionPerformed
+        //Ocultar CRUD
+        btnEditar.setVisible(false);
+        btnEliminar.setVisible(false);
+        btnNuevo.setVisible(false);
+
+        //Verificar si el tab/Pestaña ya existe en el JTabbedPane
+        int indicePestaña = jTabbedPane1.indexOfTab("Ganado"); //Obtine la posición de la pestaña según el título de la misma (0...n).
+        
+        if (indicePestaña == -1) {
+            //La pestaña no existe. Toca crear una nueva instancia del panel y añadirla al JTabbedPane.
+            jTabbedPane1.addTab("Ganado", new GanadoPanel(ganadoServicio));
+
+        }
+        
+        //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Ganado"));
+    }//GEN-LAST:event_btnPanelGanadoActionPerformed
+
+    private void btnPanelComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelComprasActionPerformed
+        mostrarCrud();
+        //Verificar si el tab/Pestaña ya existe en el JTabbedPane
+        int indicePestaña = jTabbedPane1.indexOfTab("Compras"); //Obtine la posición de la pestaña según el título de la misma (0...n).
+        
+        if (indicePestaña == -1) {
+            //La pestaña no existe. Toca crear una nueva instancia del panel y añadirla al JTabbedPane.
+            jTabbedPane1.addTab("Compras", new CompraPanel(compraServicio));
+
+        }
+        
+        //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Compras"));
+    }//GEN-LAST:event_btnPanelComprasActionPerformed
+
+    //Para abrir el panel de ventas
+    private void btnPanelVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelVentasActionPerformed
+        mostrarCrud();
+        //Verificar si el tab/Pestaña ya existe en el JTabbedPane
+        int indicePestaña = jTabbedPane1.indexOfTab("Ventas");
+        
+        if (indicePestaña == -1) {
+            //La pestaña no existe. Toca crear una nueva instancia del panel.
+            jTabbedPane1.addTab("Ventas", new VentaPanel(ventaServicio));
+        }
+        
+        //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Ventas"));
+    }//GEN-LAST:event_btnPanelVentasActionPerformed
+
+    //Para abrir el panel de traslados
+    private void btnPanelTrasladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelTrasladosActionPerformed
+        mostrarCrud();
+        int indicePestaña = jTabbedPane1.indexOfTab("Traslados");
+        
+        if (indicePestaña == -1) {
+            jTabbedPane1.addTab("Traslados", new TrasladoPanel(trasladoServicio));
+        }
+        
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Traslados"));
+    }//GEN-LAST:event_btnPanelTrasladosActionPerformed
+
+    private void btnPanelVacunasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelVacunasActionPerformed
+        mostrarCrud();
+        int indicePestaña = jTabbedPane1.indexOfTab("Vacunas");
+        
+        if (indicePestaña == -1) {
+            jTabbedPane1.addTab("Vacunas", new VacunaPanel(vacunaServicio));
+        }
+        
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Vacunas"));
+    }//GEN-LAST:event_btnPanelVacunasActionPerformed
+
+    //Para abrir el panel de palpaciones
+    private void btnPanelPalpacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelPalpacionesActionPerformed
+        mostrarCrud();
+        
+        int indicePestaña = jTabbedPane1.indexOfTab("Palpaciones");
+        
+        if (indicePestaña == -1) {
+            jTabbedPane1.addTab("Palpaciones", new PalpacionPanel(palpacionServicio));
+        }
+        
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Palpaciones"));
+    }//GEN-LAST:event_btnPanelPalpacionesActionPerformed
+
+    //MÉTODO AUXILIAR
+    private void mostrarCrud() {
+        btnEditar.setVisible(true);
+        btnEliminar.setVisible(true);
+        btnNuevo.setVisible(true);
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
