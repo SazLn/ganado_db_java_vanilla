@@ -82,9 +82,8 @@ public class HembraPanel extends JPanel {
     
     
     public void nuevo() {
-        //Extraer los estados reproductivos, sexo y estado de salud.
+        //Extraer los estados reproductivos y estado de salud. Para la lista de opciones.
          EnumEstadoReproductivo[] estados = EnumEstadoReproductivo.values();
-         EnumSexo[] sexos = EnumSexo.values();
          EnumEstadoSalud[] saludValores = EnumEstadoSalud.values();
         
         String idGanado = JOptionPane.showInputDialog("Ingrese el ID del ganado:");
@@ -95,8 +94,7 @@ public class HembraPanel extends JPanel {
         if (numeroMarca == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (numeroMarca.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "La marca no puede estar vacia."); return; }
         
-        EnumSexo tipoSexo = (EnumSexo) JOptionPane.showInputDialog(null, "Seleccione el sexo:", "Sexo", JOptionPane.QUESTION_MESSAGE, null, sexos, sexos[0]);
-        if (tipoSexo == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
+        EnumSexo tipoSexo = EnumSexo.H;
         
         String peso = JOptionPane.showInputDialog("Ingrese el peso:");
         if (peso == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
@@ -123,6 +121,8 @@ public class HembraPanel extends JPanel {
         int aptaReproduccion = JOptionPane.showConfirmDialog(null, "La hembra es apta para reproduccion?", "Reproduccion", JOptionPane.YES_NO_OPTION);
         if (aptaReproduccion == JOptionPane.CLOSED_OPTION) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; } //Cuando el usuario cierra la ventana sin seleccionar ninguna de las opciones disponibles.
         
+  
+        
         //Insertar.
         Hembra nueva = new Hembra(estadoReproductivo, fechaUltimoParto,
                 Integer.parseInt(numeroPartos), aptaReproduccion == JOptionPane.YES_OPTION, //Convierte el valor a boolean, y tira 'true' o 'false' según si la condición se cumple o no.
@@ -137,7 +137,7 @@ public class HembraPanel extends JPanel {
 
     public void editar() {
         
-        //Seleccionar fila des de la GUI.
+        //Seleccionar fila desde la GUI.
         int fila = tabla.getSelectedRow();
         
         //Validar que la fila haya sido seleccionada.

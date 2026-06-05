@@ -91,6 +91,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnPanelGanado.setText("Ganado");
 
         btnPanelMachos.setText("Machos");
+        btnPanelMachos.addActionListener(this::btnPanelMachosActionPerformed);
 
         btnPanelHembras.setText("Hembras");
         btnPanelHembras.addActionListener(this::btnPanelHembrasActionPerformed);
@@ -265,7 +266,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     //Para añadir nuevos registros a la tabla.
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        //Obtener componente activo de JTabbedPane (el que se muestra en pantalla)
+        //Obtener componente activo de JTabbedPane (el panel que se muestra en pantalla)
         Component componenteACtivo = jTabbedPane1.getSelectedComponent();
         
         //Validar si el componente es una instancia de algún panel.
@@ -273,6 +274,8 @@ public class MainFrame extends javax.swing.JFrame {
             ((FincaPanel) componenteACtivo).nuevo();
         } else if (componenteACtivo instanceof HembraPanel) {
             ((HembraPanel) componenteACtivo).nuevo();
+        } else if (componenteACtivo instanceof MachoPanel) {
+            ((MachoPanel) componenteACtivo).nuevo();
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -287,6 +290,8 @@ public class MainFrame extends javax.swing.JFrame {
             ((FincaPanel) componenteACtivo).editar();
         } else if (componenteACtivo instanceof HembraPanel) {
             ((HembraPanel) componenteACtivo).editar();
+        } else if (componenteACtivo instanceof MachoPanel) {
+            ((MachoPanel) componenteACtivo).editar();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -297,9 +302,13 @@ public class MainFrame extends javax.swing.JFrame {
             ((FincaPanel) componenteACtivo).eliminar();
         } else if (componenteACtivo instanceof HembraPanel) {
             ((HembraPanel) componenteACtivo).eliminar();
+        } else if (componenteACtivo instanceof MachoPanel) {
+            ((MachoPanel) componenteACtivo).eliminar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-
+    
+    
+    //Para abrir el panel de consultas.
     private void btnPanelConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelConsultasActionPerformed
         //Verificar si el tab/Pestaña ya existe en el JTabbedPane
         int indicePestaña = jTabbedPane1.indexOfTab("Consultas"); //Obtine la posición de la pestaña según el título de la misma (0...n).
@@ -313,6 +322,21 @@ public class MainFrame extends javax.swing.JFrame {
         //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
         jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Consultas"));
     }//GEN-LAST:event_btnPanelConsultasActionPerformed
+
+    //Para abrir el panel de machos
+    private void btnPanelMachosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanelMachosActionPerformed
+         //Verificar si el tab/Pestaña ya existe en el JTabbedPane
+        int indicePestaña = jTabbedPane1.indexOfTab("Machos"); //Obtine la posición de la pestaña según el título de la misma (0...n).
+        
+        if (indicePestaña == -1) {
+            //La pestaña no existe. Toca crear una nueva instancia del panel y añadirla al JTabbedPane.
+            jTabbedPane1.addTab("Machos", new MachoPanel(machoServicio, ganadoServicio));
+
+        }
+        
+        //Si ya existía la pestaña o se acaba de crear, mostrarla en pantalla.
+        jTabbedPane1.setSelectedIndex(jTabbedPane1.indexOfTab("Machos"));
+    }//GEN-LAST:event_btnPanelMachosActionPerformed
     
     
     
