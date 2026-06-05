@@ -39,7 +39,7 @@ public class Hembra extends Ganado {
     }
     
      /*Constructor sin:
-
+      - Fecha de nacimiento
       - Fecha de salida
       - Motivo de salida
       Y con el valor del id de la madre por defecto.
