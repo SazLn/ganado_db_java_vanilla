@@ -130,6 +130,13 @@ public class TrasladoPanel extends JPanel {
         if (costoTraslado == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (costoTraslado.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El costo no puede estar vacio."); return; }
         
+        try {
+            double prueba = Double.parseDouble(costoTraslado);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El costo del traslado debe ser numerico.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         //Finca origen
         String idFincaOrigen = JOptionPane.showInputDialog("Ingrese el ID de la finca de origen:");
         if (idFincaOrigen == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }

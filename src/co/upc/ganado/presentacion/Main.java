@@ -4,22 +4,22 @@ import co.upc.ganado.borradores.MainFrameBorrador;
 import javax.swing.*;
 
 public class Main {
-    //Hacer cada parte de la GUI junto con sus funcionalidades y lógica para validar errores.
+
     public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new MainFrameBorrador("Admin").setVisible(true));
+
 
         LoginFrame login = new LoginFrame();
-        login.setLocationRelativeTo(null);
+        login.setLocationRelativeTo(null); //Centrar en pantalla.
         login.setVisible(true);
         
-        //TODO: formatear los precios y hacer que los botones CRUD sean visibles o no dependiendo del panel.
+        
 
         
         
     }
 
     /* ============================================================
-       CÓDIGO DE PRUEBAS EN CONSOLA (original) — comentado
+       CÓDIGO DE PRUEBAS EN CONSOLA — comentado
        ============================================================
 
     static void probarDetalleTrasladoService() {

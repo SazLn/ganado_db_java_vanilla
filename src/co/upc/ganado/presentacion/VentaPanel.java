@@ -70,7 +70,7 @@ public class VentaPanel extends JPanel {
                 v.getTipoVenta(),
                 v.getComprador(),
                 v.getDocumentoReferencia(), //Nullable
-                String.format("%,.2f", v.getValorTotalVenta()),
+                String.format("%,.2f", v.getValorTotalVenta()), //Formatear precios.
                 v.getMetodoPago(),
                 v.getResponsableVenta()
             });
@@ -132,6 +132,14 @@ public class VentaPanel extends JPanel {
         String valorTotalVenta = JOptionPane.showInputDialog("Ingrese el valor total de la venta:");
         if (valorTotalVenta == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (valorTotalVenta.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El valor total no puede estar vacio."); return; }
+        
+        try {
+            double prueba = Double.parseDouble(valorTotalVenta);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor de la venta debe ser numerico.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         
         //Metodo de pago
         String metodoPago = JOptionPane.showInputDialog("Ingrese el metodo de pago:");

@@ -106,7 +106,7 @@ public class VacunaPanel extends JPanel {
         if (descripcion == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         
         //Dosis estandar
-        String dosisEstandar = JOptionPane.showInputDialog("Ingrese la dosis estandar:");
+        String dosisEstandar = JOptionPane.showInputDialog("Ingrese la dosis estandar en ml:");
         if (dosisEstandar == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (dosisEstandar.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "La dosis estandar no puede estar vacia."); return; }
         

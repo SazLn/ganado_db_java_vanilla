@@ -16,7 +16,7 @@ import java.awt.BorderLayout;
  * Panel de gestion de compras de ganado. Muestra una tabla con todas
  * las compras registradas y proporciona metodos para las operaciones
  * CRUD: crear, editar y eliminar compras.
- * <p>
+ * 
  * Este panel se inserta dentro de un JTabbedPane en el MainFrame y
  * utiliza un CompraService para la logica de negocio y persistencia.
  *
@@ -128,6 +128,13 @@ public class CompraPanel extends JPanel {
         String valorTotalCompra = JOptionPane.showInputDialog("Ingrese el valor total de la compra:");
         if (valorTotalCompra == null) { JOptionPane.showMessageDialog(null, "Operacion cancelada."); return; }
         if (valorTotalCompra.trim().isEmpty()) { JOptionPane.showMessageDialog(null, "El valor total no puede estar vacio."); return; }
+        
+        try {
+            double prueba = Double.parseDouble(valorTotalCompra);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor de la compra debe ser numerico.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         //Responsable
         String responsableCompra = JOptionPane.showInputDialog("Ingrese el responsable de la compra:");
